@@ -7,3 +7,17 @@
 .text {
     color: #bbb;
 }
+
+.value {
+    font-size: 15px;
+    padding: 5px;
+    font-weight: 600;
+}
+
+.pulse {
+    animation: heartbeat 1s infinite;
+}
+
+@keyframes heartbeat {
+    to { transform: scale(1.6); }
+}

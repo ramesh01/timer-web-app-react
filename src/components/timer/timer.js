@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useEffect, useRef, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import classes from './timer.module.css';
+import classNames from 'classnames/bind';
 
 const Timer = () => {
     const [second, setSecond] = useState(0);
@@ -13,7 +14,6 @@ const Timer = () => {
     
     const onChangeHandler = (event) => {
         const secondVal = event.target.value;
-        console.log();
         if (secondVal  && Number.isInteger(Number(secondVal)) && secondVal > 0) {
             setTimerStart(true);
         } else {
@@ -27,7 +27,7 @@ const Timer = () => {
             setSecond(second - 1);
         }, 1000);
         second <= 0 && setCountdownTimer(0);
-        second <= 0 && setCountdownCompleted(false);
+        second <= 0 && setCountdownCompleted(true);
       return () => {
           clearInterval(timer);
         }
@@ -49,16 +49,18 @@ const Timer = () => {
     }
 
     const renderTime = ({ remainingTime }) => {
+
         if (!countdownCompleted) {
           return <div className="timer">0</div>;
-        } else if (remainingTime === 0){
+        } else if (remainingTime === 0) {
             return <div className="timer">Completed...</div>;
         }
-      
+
         return (
           <div className={classes.timer}>
             <div className={classes.text}>Remaining</div>
-            <div className="value">{remainingTime}</div>
+            {remainingTime > 5 && <div className={classNames(classes.value)}>{remainingTime}</div>}
+            {remainingTime <= 5 && <div className={classNames(classes.value, classes.pulse)}>{remainingTime}</div>}
             <div className={classes.text}>seconds</div>
           </div>
         );
@@ -86,24 +88,24 @@ const Timer = () => {
                     </Form>
                 </div>
                 <div className="col-12 mt-4 d-flex justify-content-center">
-                {countdownTimer > 0 && <CountdownCircleTimer
-                    isPlaying
-                    duration={countdownTimer}
-                    colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-                    colorsTime={[10, 6, 3, 0]}
-                    onComplete={() => ({ shouldRepeat: false , delay: 1 })}
-                    >
-                    {renderTime}
-                </CountdownCircleTimer>}
-                {!countdownCompleted && countdownTimer <= 0 && <CountdownCircleTimer
-                    isPlaying
-                    duration={countdownTimer}
-                    colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-                    colorsTime={[10, 6, 3, 0]}
-                    onComplete={() => ({ shouldRepeat: false , delay: 1 })}
-                    >
-                    {renderTime}
-                </CountdownCircleTimer>}
+                    {countdownTimer > 0 && <CountdownCircleTimer
+                        isPlaying
+                        duration={countdownTimer}
+                        colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                        colorsTime={[10, 6, 3, 0]}
+                        onComplete={() => ({ shouldRepeat: false , delay: 1 })}
+                        >
+                        {renderTime}
+                    </CountdownCircleTimer>}
+                    {!countdownCompleted && <CountdownCircleTimer
+                        isPlaying
+                        duration={countdownTimer}
+                        colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                        colorsTime={[10, 6, 3, 0]}
+                        onComplete={() => ({ shouldRepeat: false , delay: 1 })}
+                        >
+                        {renderTime}
+                    </CountdownCircleTimer>}
                 </div>
                 </div>
             </div>
