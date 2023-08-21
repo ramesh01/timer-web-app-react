@@ -1,7 +1,15 @@
 .footer {
-    position: fixed;
-    width: 100%;
-    text-align: center;
-    bottom: 0;
-    padding: 20px 15px;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  bottom: 0;
+  padding: 20px 15px;
+  background-color: #8a2be2;
+  color: #ffffff !important;
+  font-size: 14px;
+}
+
+a {
+  color: #ffffff !important;
+  text-decoration: none !important;
 }

@@ -1,11 +1,11 @@
-import classes  from './header.module.css';
+import classes from './header.module.css';
 import classNames from 'classnames/bind';
 const Header = () => {
-    return(
+    return (
         <>
-        <div className={classNames(classes.header, classes.background)}>
-            <p>Countdown Timer Web Application 😊</p>
-        </div>
+            <div className={classNames(classes.header, classes.background)}>
+                <p>Countdown Timer Application 🕖</p>
+            </div>
         </>
     );
 }

@@ -6,9 +6,9 @@ import Timer from './components/timer/timer';
 function App() {
   return (
     <div className="App">
-      <Header/>
-      <Timer/>
-      <Footer/>
+      <Header />
+      <Timer />
+      <Footer />
     </div>
   );
 }
