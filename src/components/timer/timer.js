@@ -6,19 +6,12 @@ import classes from './timer.module.css';
 import classNames from 'classnames/bind';
 
 const Timer = () => {
+    const SECONDS_5 = 5;
     const [timer, setTimer] = useState(0);
     const [timerStart, setTimerStart] = useState(false);
-    const secondTimer = useRef();
     const [countdownTimer, setCountdownTimer] = useState(0);
     const [countdownCompleted, setCountdownCompleted] = useState(false);
-
-    const onChangeHandler = (event) => {
-        const secondVal = event.target.value;
-        if (secondVal && parseInt(secondVal) && secondVal > 0) {
-            setTimerStart(true); return;
-        }
-        setTimerStart(false);
-    };
+    const secondTimer = useRef();
 
     useEffect(() => {
         const interval = timer > 0 && setInterval(() => {
@@ -30,6 +23,14 @@ const Timer = () => {
             clearInterval(interval);
         }
     }, [timer]);
+    
+    const onChangeHandler = (event) => {
+        const secondVal = event.target.value;
+        if (secondVal && parseInt(secondVal) && secondVal > 0) {
+            setTimerStart(true); return;
+        }
+        setTimerStart(false);
+    };
 
     const startTimer = () => {
         const secondVal = parseInt(secondTimer.current.value);
@@ -51,14 +52,15 @@ const Timer = () => {
         if (!countdownCompleted) {
             return <div className="timer">0</div>;
         } else if (remainingTime === 0) {
+
             return <div className="timer">Completed...</div>;
         }
 
         return (
             <div className={classes.timer}>
                 <div className={classes.text}>Remaining</div>
-                {remainingTime > 5 && <div className={classNames(classes.value)}>{remainingTime}</div>}
-                {remainingTime <= 5 && <div className={classNames(classes.value, classes.pulse)}>{remainingTime}</div>}
+                {remainingTime > SECONDS_5 && <div className={classNames(classes.value)}>{remainingTime}</div>}
+                {remainingTime <= SECONDS_5 && <div className={classNames(classes.value, classes.pulse)}>{remainingTime}</div>}
                 <div className={classes.text}>seconds</div>
             </div>
         );
@@ -67,7 +69,7 @@ const Timer = () => {
     return (
         <div className="row justify-content-center">
             <div className="col-12">
-                <p className=" text-center pt-3"><strong>Timer</strong></p>
+                <p className=" text-center pt-3"><strong>Countdown Timer</strong></p>
             </div>
             <div className="col-2">
                 <Form className="mt-3">
